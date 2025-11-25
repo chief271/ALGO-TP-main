@@ -1,0 +1,19 @@
+{
+  "name": "tpalgo-static-server",
+  "version": "1.0.0",
+  "description": "Simple static site with sidebar navigation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
