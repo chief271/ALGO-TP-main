@@ -328,13 +328,48 @@
             </div>
         </div>
         <div id="tp5-content" class="tp-content">
-            <div class="coming-soon">
-                <h2>TP5</h2>
-                <p>Coming Soon</p>
-            </div>
+            <h1 class="tp5-title">TP5 – Recursive Largest First</h1>
+            <div class="tp5-layout" style="display:flex;gap:20px;align-items:flex-start;">
+                <div class="tp5-left" style="flex:0 0 360px;">
+                    <div class="tp5-panel" style="padding:16px;border-radius:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+                        <label for="tp5-array-input">Matrice d'Adjacence :</label>
+                        <textarea id="tp5-array-input" placeholder="Saisissez la matrice d'adjacence (séparée par des virgules ou des espaces)&#10;Example:&#10;0 1 1 0&#10;1 0 1 1&#10;1 1 0 1&#10;0 1 1 0" style="width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;"></textarea>
+
+    
+
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <button id="tp5-start-btn" class="tp2-btn" style="background-color:#06b6d4;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Visualiser RLF</button>
+                            <button id="tp5-reset-btn" class="tp2-btn tp2-reset" style="background-color:#ef4444;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Réinitialiser</button>
+                        </div>
+
+
+                    </div>
+                           <div class="info-section">
+                        <h3>Algorithm Info:</h3>
+                        <div class="info-text" id="algo-info">
+                            Saisissez une matrice d'adjacence et cliquez sur « Visualiser RLF » pour voir l'algorithme en action.
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+                        <div class="info-box" style="margin-top: 20px;">
+                    <strong>Fonctionnement de RLF:</strong><br>
+                    1. Trouver le sommet de plus grand degré.<br>
+                    2. Le colorier avec la couleur actuelle.<br>
+                    3. Colorier tous les sommets non adjacents.<br>
+                    4. Répéter l’opération avec une nouvelle couleur pour les sommets restants.
+                </div>
+                </div>
+                <div class="tp5-right" style="flex:1;">
+                    <div class="tp5-canvas-area">
+                        <div id="tp5-network" class="tp4-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
+                    </div>
+                </div>
         </div>
     </div>
     <script src="js/tp3.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/tp5.js"></script>
 </body>
 </html>
