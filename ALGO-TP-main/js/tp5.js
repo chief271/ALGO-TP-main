@@ -36,18 +36,77 @@ function initNetwork() {
 // Parse adjacency matrix
 function parseMatrix(input) {
     const rows = input.trim().split('\n').filter(r => r.trim());
-    const matrix = rows.map(row => 
+    const matrix = rows.map(row =>
         row.split(',').map(val => parseInt(val.trim()))
     );
-    
+
     if (matrix.length === 0) throw new Error('Empty matrix');
     const n = matrix.length;
     if (!matrix.every(row => row.length === n)) {
         throw new Error('Matrix must be square');
     }
-    
+
     return matrix;
 }
+
+//parse bellmand-ford matrix 
+function parseWeightedMatrix(bellmanMatrix) {
+    const rows = bellmanMatrix.trim().split('\n').filter(r => r.trim());
+
+    const bellmatrix = rows.map(row =>
+        row
+            .trim()
+            .split(/[\s,]+/)     // space OR comma
+            .map(val => {
+                const num = Number(val);
+                if (isNaN(num)) {
+                    throw new Error("Invalid number in matrix");
+                }
+                return num;
+            })
+    );
+
+    if (bellmatrix.length === 0) {  // ✅ CORRECT - check parsed matrix
+        throw new Error("Empty matrix");
+    }
+
+    const n = bellmatrix.length;
+    if (!bellmatrix.every(row => row.length === n)) {
+        throw new Error("Matrix must be square");
+    }
+
+    return bellmatrix;
+}
+
+//create bellmand graph from matrix
+function createDirectedGraphFromWeightedMatrix(bellmatrix) {
+    const n = bellmatrix.length;
+    nodes.clear();
+    edges.clear();
+
+    for (let i = 0; i < n; i++) {
+        nodes.add({
+            id: i,
+            label: `${i}`,
+            color: { background: '#94a3b8', border: '#64748b' }
+        });
+    }
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (bellmatrix[i][j] !== 0) {  // Changed from bellmanMatrix
+                edges.add({
+                    from: i,
+                    to: j,
+                    label: String(bellmatrix[i][j]),  // Changed from bellmanMatrix
+                    arrows: 'to'
+                });
+            }
+        }
+    }
+}
+
+
 
 // Create graph from matrix
 function createGraphFromMatrix(matrix) {
@@ -64,9 +123,14 @@ function createGraphFromMatrix(matrix) {
     }
 
     for (let i = 0; i < n; i++) {
-        for (let j = i + 1; j < n; j++) {
-            if (matrix[i][j] === 1) {
-                edges.add({ from: i, to: j });
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] !== 0) {  // Changed from bellmanMatrix
+                edges.add({
+                    from: i,
+                    to: j,
+                    label: String(matrix[i][j]),  // Changed from bellmanMatrix
+                    arrows: 'to'
+                });
             }
         }
     }
@@ -111,7 +175,7 @@ async function rlfAlgorithm(matrix) {
         vertexColors[selectedVertex] = colorClass;
         currentColorVertices.push(selectedVertex);
         uncoloredVertices.delete(selectedVertex);
-        
+
         // Remove neighbors from available set
         const forbidden = new Set();
         for (let i = 0; i < n; i++) {
@@ -156,20 +220,20 @@ async function rlfAlgorithm(matrix) {
 
         // Visualize this color class
         await visualizeColorClass(currentColorVertices, colorClass, colors[colorClass % colors.length]);
-        
+
         colorClass++;
     }
 
     updateInfo(`Algorithm complete! Chromatic number: ${colorClass}`);
     displayColorLegend(colorAssignments, colors);
-    
+
     return { vertexColors, chromaticNumber: colorClass };
 }
 
 // Visualize coloring a set of vertices
 async function visualizeColorClass(vertices, colorClass, color) {
     updateInfo(`Coloring class ${colorClass + 1} with vertices: ${vertices.join(', ')}`);
-    
+
     for (let v of vertices) {
         nodes.update({
             id: v,
@@ -208,26 +272,117 @@ function updateInfo(text) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+//bellmand-ford function 
+function bellmanFord(bellmatrix, source) {
+    const n = bellmatrix.length;
+    let dist = Array(n).fill(Infinity);
+    dist[source] = 0;
+
+    let history = [];
+    history.push({ step: "Init", dist: [...dist] });
+
+    // Relax edges |V|-1 times
+    for (let k = 1; k <= n - 1; k++) {
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < n; j++) {
+                if (bellmatrix[i][j] > 0 && dist[i] !== Infinity) {
+                    if (dist[i] + bellmatrix[i][j] < dist[j]) {
+                        dist[j] = dist[i] + bellmatrix[i][j];
+                    }
+                }
+            }
+        }
+        history.push({ step: k, dist: [...dist] });
+    }
+
+    return history; // used for table + coloring
+}
+// Color nodes by distance
+function colorByDistance(distances) {
+    distances.forEach((d, i) => {
+        let color = '#94a3b8'; // default gray
+
+        if (d !== Infinity) {
+            color = colors[d % colors.length];
+        }
+
+        nodes.update({
+            id: i,
+            color: { background: color, border: '#1e293b' }
+        });
+    });
+}
+
 
 // Start button handler
 document.getElementById('tp5-start-btn').addEventListener('click', async () => {
     try {
+        const bellmanmatrixValue = document.getElementById('bellmand-ford-matrix').value;
         const input = document.getElementById('tp5-array-input').value;
-        if (!input.trim()) {
-            alert('Please enter an adjacency matrix!');
-            return;
+        const algo = document.getElementById('tp5-algo-select').value;
+
+        if (algo === 'rlf') {
+            const matrix = parseMatrix(input);
+            createGraphFromMatrix(matrix);
+            await sleep(1000);
+            updateInfo('Running Recursive Largest First (RLF)...');
+            await rlfAlgorithm(matrix);
+        }
+        else if (algo === 'bellman') {
+            const bellmatrix = parseWeightedMatrix(bellmanmatrixValue); // Use weighted parser
+            createDirectedGraphFromWeightedMatrix(bellmatrix); // Create directed graph
+            await sleep(1000);
+
+            const source = parseInt(document.getElementById('bf-source').value);
+            updateInfo(`Running Bellman-Ford from source ${source}...`);
+
+            const history = bellmanFord(bellmatrix, source); // Pass correct variable
+            const finalDistances = history[history.length - 1].dist;
+
+            colorByDistance(finalDistances);
+            renderBellmanTable(history);
         }
 
-        const matrix = parseMatrix(input);
-        createGraphFromMatrix(matrix);
-        
-        await sleep(1000); // Wait for physics to stabilize
-        await rlfAlgorithm(matrix);
-        
     } catch (error) {
         alert('Error: ' + error.message);
     }
 });
+
+// Render the Bellman-Ford table in HTML
+function renderBellmanTable(history) {
+    // Ensure the container is visible
+    const container = document.getElementById('bf-table-container');
+    container.style.display = 'block';
+
+    const thead = document.querySelector('#bfTable thead');
+    const tbody = document.querySelector('#bfTable tbody');
+
+    thead.innerHTML = '';
+    tbody.innerHTML = '';
+
+    // Number of vertices
+    const n = history[0].dist.length;
+
+    // Create table header
+    let header = '<tr><th>Iteration</th>';
+    for (let i = 0; i < n; i++) {
+        header += `<th>d(${i})</th>`;
+    }
+    header += '</tr>';
+    thead.innerHTML = header;
+
+    // Create table body
+    history.forEach(row => {
+        let tr = `<tr><td>${row.step}</td>`;
+        row.dist.forEach(d => {
+            tr += `<td>${d === Infinity ? '∞' : d}</td>`;
+        });
+        tr += '</tr>';
+        tbody.innerHTML += tr;
+    });
+}
+
+
 
 // Reset button handler
 document.getElementById('tp5-reset-btn').addEventListener('click', () => {
@@ -239,3 +394,27 @@ document.getElementById('tp5-reset-btn').addEventListener('click', () => {
 
 // Initialize on load
 initNetwork();
+
+const algoSelect = document.getElementById('tp5-algo-select');
+const startBtn = document.getElementById('tp5-start-btn');
+const bellmanMatrix = document.getElementById('bellmand-ford-matrix');
+const rlfMatrix = document.querySelector('.rlf-matrix');
+const bellmandInfoBox = document.querySelector('#bellmand-info-box');
+const rlfInfoBox = document.querySelector('#rlf-info-box');
+
+algoSelect.addEventListener('change', () => {
+    if (algoSelect.value === 'bellman') {
+        startBtn.textContent = 'Visualiser Bellman-Ford';
+        bellmanMatrix.style.display = 'block';
+        rlfMatrix.style.display = 'none';
+        bellmandInfoBox.style.display = 'block';
+        rlfInfoBox.style.display = 'none';
+
+    } else {
+        startBtn.textContent = 'Visualiser RLF';
+        bellmanMatrix.style.display = 'none';
+        rlfMatrix.style.display = 'block';
+        bellmandInfoBox.style.display = 'none';
+        rlfInfoBox.style.display = 'block';
+    }
+});
