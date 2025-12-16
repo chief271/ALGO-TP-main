@@ -14,7 +14,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 280px;
+    width: 230px;
     height: 100vh;
     background: linear-gradient(160deg, #1a1a2e 60%, #16213e 100%);
     box-shadow: 3px 0 15px rgba(0, 0, 0, 0.3);
@@ -443,8 +443,8 @@ body {
 }
 
 .main-content {
-    margin-left: 250px;
-    padding: 40px 30px;
+    margin-left: 230px;
+    padding: 40px 20px;
     opacity: 0;
     animation: fade-in-content 1s 0.3s ease forwards;
     min-height: 80vh;
