@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algo TP</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
-<!-- Vis.js library -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
+    <!-- Vis.js library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
 
 
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -40,7 +42,7 @@
             </button>
             <button class="menu-item">
                 <div class="menu-title">TP 5</div>
-            
+
             </button>
         </nav>
         <footer class="sidebar-footer">
@@ -83,7 +85,7 @@
                             <option value="Tas">Tas (Heap)</option>
                             <option value="Graphe">Graphe</option>
                         </select>
-                        
+
                         <!-- Node Value Input (for trees) -->
                         <div id="tree-options">
                             <!-- ABR and AVL share the same input field -->
@@ -100,7 +102,7 @@
                                 <input type="text" id="tp1-node" placeholder="Entrer une valeur" />
                             </div>
                         </div>
-                        
+
                         <!-- Graph Options (initially hidden) -->
                         <div id="graph-options" style="display: none;">
                             <div class="radio-group">
@@ -116,7 +118,7 @@
                                     Orienté
                                 </label>
                             </div>
-                            
+
                             <div class="radio-group">
                                 <div class="radio-title">Poids :</div>
                                 <label class="radio-label">
@@ -130,20 +132,22 @@
                                     Pondéré
                                 </label>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="node-count">Nombre de nœuds :</label>
                                 <input type="number" id="node-count" min="2" max="15">
                             </div>
                         </div>
-                        
+
                         <button id="action-btn" class="tp1-btn">Ajouter Noeud</button>
                         <button class="tp1-btn tp1-reset">Réinitialiser</button>
                     </div>
                 </div>
                 <div class="tp1-right">
                     <div class="tp1-canvas-area">
-                        <div id="treeNetwork" class="tp1-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
+                        <div id="treeNetwork" class="tp1-canvas"
+                            style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;">
+                        </div>
                         <div class="tp1-properties">
                             <div>Hauteur: <span id="hauteur" class="tp1-prop-value">0</span></div>
                             <div>Degré: <span id="degre" class="tp1-prop-value">0</span></div>
@@ -162,7 +166,7 @@
                             <option value="ABR">ABR (Arbre Binaire de Recherche)</option>
                             <option value="AVL">AVL</option>
                         </select>
-                        
+
                         <div class="tp2-options">
                             <div id="tp2-tree-options">
                                 <div class="tp2-option">
@@ -175,41 +179,48 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button id="tp2-action-btn" class="tp2-btn">Construire</button>
                         <button id="tp2-reset-btn" class="tp2-btn tp2-reset">Réinitialiser</button>
-                        
+
                         <!-- New Search Section -->
                         <div id="tp2-search-section" style="margin-top: 20px; display: none;">
                             <h3>Recherche</h3>
                             <div class="tp2-option">
                                 <label for="tp2-search-input">Rechercher une valeur :</label>
                                 <div style="display: flex; gap: 10px;">
-                                    <input type="number" id="tp2-search-input" placeholder="Entrer une valeur" class="tp2-input" />
-                                    <button id="tp2-search-btn" class="tp2-btn" style="background-color: #3b82f6;">Rechercher</button>
+                                    <input type="number" id="tp2-search-input" placeholder="Entrer une valeur"
+                                        class="tp2-input" />
+                                    <button id="tp2-search-btn" class="tp2-btn"
+                                        style="background-color: #3b82f6;">Rechercher</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- New Delete Section -->
                         <div id="tp2-delete-section" style="margin-top: 20px; display: none;">
                             <h3>Suppression</h3>
                             <div class="tp2-option">
                                 <label for="tp2-delete-input">Supprimer une valeur :</label>
                                 <div style="display: flex; gap: 10px;">
-                                    <input type="number" id="tp2-delete-input" placeholder="Entrer une valeur" class="tp2-input" />
-                                    <button id="tp2-delete-btn" class="tp2-btn" style="background-color: #ef4444;">Supprimer</button>
+                                    <input type="number" id="tp2-delete-input" placeholder="Entrer une valeur"
+                                        class="tp2-input" />
+                                    <button id="tp2-delete-btn" class="tp2-btn"
+                                        style="background-color: #ef4444;">Supprimer</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Status Message -->
-                        <div id="tp2-status" style="margin-top: 15px; min-height: 20px; color: #3b82f6; font-weight: 500;"></div>
+                        <div id="tp2-status"
+                            style="margin-top: 15px; min-height: 20px; color: #3b82f6; font-weight: 500;"></div>
                     </div>
                 </div>
                 <div class="tp2-right">
                     <div class="tp2-canvas-area">
-                        <div id="tp2-treeNetwork" class="tp2-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
+                        <div id="tp2-treeNetwork" class="tp2-canvas"
+                            style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;">
+                        </div>
                         <div class="tp2-properties">
                             <div>Type: <span id="tp2-type" class="tp2-prop-value">-</span></div>
                             <div>Hauteur: <span id="tp2-hauteur" class="tp2-prop-value">0</span></div>
@@ -221,78 +232,84 @@
         </div>
         <div id="tp3-content" class="tp-content">
             <h1 class="tp3-title">TP3 – Recherche et Suppression dans les Arbres Rouge&Noir</h1>
-    <div class="tp3-layout">
-        <div class="tp3-left">
-            <div class="tp3-panel">
-                <label for="tp3-structure">Structure :</label>
-                <select id="tp3-structure">
-                    <option value="RBT">Arbre Rouge & Noir</option>
-                </select>
-                
-                <!-- Node Value Inputs -->
-                <div id="tp3-tree-options">
-                    <div class="tp3-option">
-                        <label for="tp3-node-value">Valeur du noeud :</label>
-                        <input type="number" id="tp3-node-value" placeholder="Ex: 50" />
-                        
-                        <label for="tp3-bulk-values">Valeurs multiples (séparées par virgules) :</label>
-                        <input type="text" id="tp3-bulk-values" placeholder="Ex: 50, 30, 70, 20, 40" />
+            <div class="tp3-layout">
+                <div class="tp3-left">
+                    <div class="tp3-panel">
+                        <label for="tp3-structure">Structure :</label>
+                        <select id="tp3-structure">
+                            <option value="RBT">Arbre Rouge & Noir</option>
+                        </select>
+
+                        <!-- Node Value Inputs -->
+                        <div id="tp3-tree-options">
+                            <div class="tp3-option">
+                                <label for="tp3-node-value">Valeur du noeud :</label>
+                                <input type="number" id="tp3-node-value" placeholder="Ex: 50" />
+
+                                <label for="tp3-bulk-values">Valeurs multiples (séparées par virgules) :</label>
+                                <input type="text" id="tp3-bulk-values" placeholder="Ex: 50, 30, 70, 20, 40" />
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="tp3-button-group">
+                            <h3>Insertion</h3>
+                            <button id="tp3-insert-btn" class="tp3-btn">Insérer</button>
+                            <button id="tp3-insert-bulk-btn" class="tp3-btn">Insérer Multiple</button>
+                        </div>
+
+                        <div class="tp3-button-group" style="margin-top: 20px;">
+                            <h3>Recherche</h3>
+                            <label for="tp3-search-value">Valeur à rechercher :</label>
+                            <input type="number" id="tp3-search-value" placeholder="Ex: 30" />
+                            <button id="tp3-search-btn" class="tp3-btn">Rechercher</button>
+                        </div>
+
+                        <div class="tp3-button-group" style="margin-top: 20px;">
+                            <h3>Suppression</h3>
+                            <label for="tp3-delete-value">Valeur à supprimer :</label>
+                            <input type="number" id="tp3-delete-value" placeholder="Ex: 40" />
+                            <button id="tp3-delete-btn" class="tp3-btn tp3-delete">Supprimer</button>
+                        </div>
+
+                        <button id="tp3-reset-btn" class="tp3-btn tp3-reset"
+                            style="margin-top: 20px;">Réinitialiser</button>
+
+                        <!-- Search Result Display -->
+                        <div id="tp3-search-result" class="tp3-result-box"
+                            style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;">
+                            <h3>Résultat de recherche:</h3>
+                            <p id="tp3-search-message"></p>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Action Buttons -->
-                <div class="tp3-button-group">
-                    <h3>Insertion</h3>
-                    <button id="tp3-insert-btn" class="tp3-btn">Insérer</button>
-                    <button id="tp3-insert-bulk-btn" class="tp3-btn">Insérer Multiple</button>
-                </div>
 
-                <div class="tp3-button-group" style="margin-top: 20px;">
-                    <h3>Recherche</h3>
-                    <label for="tp3-search-value">Valeur à rechercher :</label>
-                    <input type="number" id="tp3-search-value" placeholder="Ex: 30" />
-                    <button id="tp3-search-btn" class="tp3-btn">Rechercher</button>
-                </div>
+                <div class="tp3-right">
+                    <div class="tp3-canvas-area">
+                        <!-- Visualization Canvas -->
+                        <div id="tp3-treeNetwork" class="tp3-canvas"
+                            style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;">
+                        </div>
 
-                <div class="tp3-button-group" style="margin-top: 20px;">
-                    <h3>Suppression</h3>
-                    <label for="tp3-delete-value">Valeur à supprimer :</label>
-                    <input type="number" id="tp3-delete-value" placeholder="Ex: 40" />
-                    <button id="tp3-delete-btn" class="tp3-btn tp3-delete">Supprimer</button>
-                </div>
-
-                <button id="tp3-reset-btn" class="tp3-btn tp3-reset" style="margin-top: 20px;">Réinitialiser</button>
-                
-                <!-- Search Result Display -->
-                <div id="tp3-search-result" class="tp3-result-box" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;">
-                    <h3>Résultat de recherche:</h3>
-                    <p id="tp3-search-message"></p>
+                        <!-- Tree Properties -->
+                        <div class="tp3-properties">
+                            <div>Hauteur: <span id="tp3-hauteur" class="tp3-prop-value">0</span></div>
+                            <div>Noeuds: <span id="tp3-node-count" class="tp3-prop-value">0</span></div>
+                            <div>Hauteur Noire: <span id="tp3-black-height" class="tp3-prop-value">0</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="tp3-right">
-            <div class="tp3-canvas-area">
-                <!-- Visualization Canvas -->
-                <div id="tp3-treeNetwork" class="tp3-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
-                
-                <!-- Tree Properties -->
-                <div class="tp3-properties">
-                    <div>Hauteur: <span id="tp3-hauteur" class="tp3-prop-value">0</span></div>
-                    <div>Noeuds: <span id="tp3-node-count" class="tp3-prop-value">0</span></div>
-                    <div>Hauteur Noire: <span id="tp3-black-height" class="tp3-prop-value">0</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
         </div>
         <div id="tp4-content" class="tp-content">
             <h1 class="tp4-title">TP4 – Visualiseur QuickSort</h1>
             <div class="tp4-layout" style="display:flex;gap:20px;align-items:flex-start;">
                 <div class="tp4-left" style="flex:0 0 360px;">
-                    <div class="tp4-panel" style="padding:16px;border-radius:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+                    <div class="tp4-panel"
+                        style="padding:16px;border-radius:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
                         <label for="tp4-array-input">Tableau à trier (séparées par des virgules) :</label>
-                        <textarea id="tp4-array-input" placeholder="Ex: 20,4,11,1,19,22,15" style="width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;"></textarea>
+                        <textarea id="tp4-array-input" placeholder="Ex: 20,4,11,1,19,22,15"
+                            style="width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;"></textarea>
 
                         <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
                             <label for="tp4-pivot-type" style="font-weight:500;margin-right:4px;">Pivot Type:</label>
@@ -306,8 +323,11 @@
                         </div>
 
                         <div style="display:flex;gap:10px;margin-top:12px;">
-                            <button id="tp4-start-btn" class="tp2-btn" style="background-color:#06b6d4;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Visualiser Quick Sort</button>
-                            <button id="tp4-reset-btn" class="tp2-btn tp2-reset" style="background-color:#ef4444;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Réinitialiser</button>
+                            <button id="tp4-start-btn" class="tp2-btn"
+                                style="background-color:#06b6d4;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Visualiser
+                                Quick Sort</button>
+                            <button id="tp4-reset-btn" class="tp2-btn tp2-reset"
+                                style="background-color:#ef4444;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Réinitialiser</button>
                         </div>
 
                         <div id="tp4-info" style="margin-top:16px;">
@@ -322,7 +342,9 @@
                 </div>
                 <div class="tp4-right" style="flex:1;">
                     <div class="tp4-canvas-area">
-                        <div id="tp4-network" class="tp4-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
+                        <div id="tp4-network" class="tp4-canvas"
+                            style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -331,45 +353,106 @@
             <h1 class="tp5-title">TP5 – Recursive Largest First</h1>
             <div class="tp5-layout" style="display:flex;gap:20px;align-items:flex-start;">
                 <div class="tp5-left" style="flex:0 0 360px;">
-                    <div class="tp5-panel" style="padding:16px;border-radius:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
-                        <label for="tp5-array-input">Matrice d'Adjacence :</label>
-                        <textarea id="tp5-array-input" placeholder="Saisissez la matrice d'adjacence (séparée par des virgules ou des espaces)&#10;Example:&#10;0 1 1 0&#10;1 0 1 1&#10;1 1 0 1&#10;0 1 1 0" style="width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;"></textarea>
 
-    
+
+
+                    <!-- choose algorihtme  -->
+                    <label for="tp5-algo-select">Choisir l'algorithme :</label>
+                    <select id="tp5-algo-select"
+                        style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid #e5e7eb;">
+                        <option value="rlf">Recursive Largest First (RLF)</option>
+                        <option value="bellman">Bellman-Ford</option>
+                    </select>
+                    <div id="bf-options" style="margin-top:10px;">
+                        <label>Sommet source :</label>
+                        <input type="number" id="bf-source" value=""
+                            style="width:100%;padding:6px;border-radius:8px;border:1px solid #e5e7eb;">
+                    </div>
+
+                    <div class="tp5-panel"
+                        style="padding:16px;border-radius:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+                        <label for="tp5-array-input">Matrice d'Adjacence :</label>
+                        <textarea id="tp5-array-input" class="rlf-matrix"
+                            placeholder="Saisissez la matrice d'adjacence (séparée par des virgules ou des espaces)&#10;Example:&#10;0 1 1 0&#10;1 0 1 1&#10;1 1 0 1&#10;0 1 1 0"
+                            style="width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;">
+                        </textarea>
+                        <textarea name="" id="bellmand-ford-matrix" placeholder="bellman ford matrix"
+                            style="display: none; width:100%;height:120px;margin-top:8px;padding:8px;border:1px solid #e5e7eb;border-radius:8px;">
+                        </textarea>
+
+
 
                         <div style="display:flex;gap:10px;margin-top:12px;">
-                            <button id="tp5-start-btn" class="tp2-btn" style="background-color:#06b6d4;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Visualiser RLF</button>
-                            <button id="tp5-reset-btn" class="tp2-btn tp2-reset" style="background-color:#ef4444;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Réinitialiser</button>
+                            <button id="tp5-start-btn" class="tp2-btn"
+                                style="background-color:#06b6d4;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Visualiser
+                                RLF</button>
+                            <button id="tp5-reset-btn" class="tp2-btn tp2-reset"
+                                style="background-color:#ef4444;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;">Réinitialiser</button>
+                        </div>
+
+                        <!-- Bellman-Ford table container -->
+                        <div id="bf-table-container" style="display:none; margin-top:20px;">
+                            <h3>Table de déroulement – Bellman-Ford</h3>
+                            <table id="bfTable" style="width:100%; border-collapse: collapse;">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
 
 
+
                     </div>
-                           <div class="info-section">
+
+                    <div class="info-section">
                         <h3>Algorithm Info:</h3>
                         <div class="info-text" id="algo-info">
-                            Saisissez une matrice d'adjacence et cliquez sur « Visualiser RLF » pour voir l'algorithme en action.
+                            Saisissez une matrice d'adjacence et cliquez sur « Visualiser RLF » pour voir l'algorithme
+                            en action.
                         </div>
                     </div>
 
                     <br>
                     <br>
-                        <div class="info-box" style="margin-top: 20px;">
-                    <strong>Fonctionnement de RLF:</strong><br>
-                    1. Trouver le sommet de plus grand degré.<br>
-                    2. Le colorier avec la couleur actuelle.<br>
-                    3. Colorier tous les sommets non adjacents.<br>
-                    4. Répéter l’opération avec une nouvelle couleur pour les sommets restants.
-                </div>
-                </div>
-                <div class="tp5-right" style="flex:1;">
-                    <div class="tp5-canvas-area">
-                        <div id="tp5-network" class="tp4-canvas" style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;"></div>
+                    <div class="info-box" id="rlf-info-box" style="margin-top: 20px;">
+                        <strong>Fonctionnement de RLF:</strong><br>
+                        1. Trouver le sommet de plus grand degré.<br>
+                        2. Le colorier avec la couleur actuelle.<br>
+                        3. Colorier tous les sommets non adjacents.<br>
+                        4. Répéter l’opération avec une nouvelle couleur pour les sommets restants.
+                    </div>
+                    <div class="info-box" id="bellmand-info-box" style=" display: none; margin-top: 20px;">
+                        <strong>Fonctionnement de Bellman-Ford:</strong><br>
+                        1. Initialiser la distance de la source à 0 et les autres à ∞.<br>
+                        2. Relâcher toutes les arêtes |V|-1 fois.<br>
+                        3. Pour chaque arête (u,v), si d(u) + poids(u,v) < d(v), mettre à jour d(v).<br>
+                            4. Détecter les cycles de poids négatif (optionnel).
                     </div>
                 </div>
+
+
+                <div id="bf-table-container" style="display:none;margin-top:20px;">
+                    <h3>Table de déroulement – Bellman-Ford</h3>
+                    <table id="bfTable">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+
+                <div class="tp5-right" style="flex:1;">
+                    <div class="tp5-canvas-area">
+                        <div id="tp5-network" class="tp4-canvas"
+                            style="width: 100%; height: 600px; border: 2px solid #e0e6ed; border-radius: 16px; background: #f9fafb;">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-    </div>
-    <script src="js/tp3.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/tp5.js"></script>
+        <script src="js/tp3.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/tp5.js"></script>
 </body>
+
 </html>
