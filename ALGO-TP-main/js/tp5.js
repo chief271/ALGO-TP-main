@@ -523,7 +523,7 @@ document.getElementById('tp5-start-btn').addEventListener('click', async () => {
         }
 
     } catch (error) {
-        alert('Error: ' + error.message);
+        console.error('Error: ' + error.message);
     }
 });
 
@@ -546,6 +546,8 @@ const bellmanMatrix = document.getElementById('bellmand-ford-matrix');
 const rlfMatrix = document.querySelector('.rlf-matrix');
 const bellmandInfoBox = document.querySelector('#bellmand-info-box');
 const rlfInfoBox = document.querySelector('#rlf-info-box');
+const sourceInput = document.getElementById('bf-options');
+
 
 // Initial display setup based on the default selected algorithm
 algoSelect.addEventListener('change', () => {
@@ -555,15 +557,17 @@ algoSelect.addEventListener('change', () => {
         rlfMatrix.style.display = 'none';
         bellmandInfoBox.style.display = 'block';
         rlfInfoBox.style.display = 'none';
+        sourceInput.style.display = 'block';
+        document.getElementById('bf-table-container').style.display = 'block';
         document.getElementById('color-legend').style.display = 'none';
-        document.getElementById('bf-table-container').style.display = 'none';
     } else {
         startBtn.textContent = 'Visualiser RLF';
         bellmanMatrix.style.display = 'none';
         rlfMatrix.style.display = 'block';
         bellmandInfoBox.style.display = 'none';
         rlfInfoBox.style.display = 'block';
-        document.getElementById('color-legend').style.display = 'none';
+        sourceInput.style.display = 'none';
         document.getElementById('bf-table-container').style.display = 'none';
+        document.getElementById('color-legend').style.display = 'none';
     }
 });
